@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Hello World</title>
+    <script src="sdk/scripts/VSS.SDK.js"></script>
+</head>
+
+<body style="margin: 0">
+    <script type="text/javascript">
+        VSS.init();
+    </script>
+    <div id="mydiv"></div>
+    <script src="sdk/scripts/jquery-3.2.1.min.js"></script>
+    <script type=" text/javascript ">
+        VSS.notifyLoadSucceeded();
+        $("#mydiv").html('<object data="https://funretro.github.io/distributed/#23b5def3-5c0a-4698-9745-ec82cd48c986" width="100%" style="overflow: auto;height: -webkit-fill-available;"/>');
+
+        VSS.getService(VSS.ServiceIds.Navigation).then(function(navigationService) {
+            navigationService.getHash().then(function(hash) {
+                console.log("Host hash value: " + hash);
+            });
+        });
+
+        VSS.getService(VSS.ServiceIds.Navigation).then(function(navigationService) {
+            navigationService.onHashChanged(function(hash) {
+                if (hash != null || hash != "") {
+                    $("#mydiv").html('<object data="https://funretro.github.io/distributed/#' + hash + '" width="100%" style="overflow: auto;height: -webkit-fill-available;"/>');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
